@@ -56,7 +56,7 @@ app.get('/status',async (req, res) => {
 
 
 app.get('/download', (req, res) => {
-  const filename = "something.py";
+  const filename = "clientfiles.zip";
   // const filePath = path.join(filesDirectory, filename);
   res.download(filename, (err) => {
     if (err) {
@@ -88,6 +88,6 @@ app.get('/statuscontrol', (req, res) => {
 
 
 
-app.listen(port, () => {
+app.listen(port,'0.0.0.0', () => {
   console.log(`Example app listening on port ${port}`)
 })
