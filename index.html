@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Button</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Function to fetch the current status from the server
+            fetch('http://localhost:3000/status')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const button = document.getElementById('toggleButton');
+                    button.innerText = data.isActive ? 'Turn Off' : 'Turn On';
+                })
+                .catch(error => console.error('Error fetching status:', error));
+            
+            // Function to handle button click
+            document.getElementById('toggleButton').addEventListener('click', function() {
+                const button = this;
+                const newState = button.innerText === 'Turn On' ? 'on' : 'off';
+
+                fetch('http://localhost:3000/toggle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ state: newState })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+
+                    button.innerText = newState === 'on' ? 'Turn Off' : 'Turn On';
+                })
+                .catch(error => console.error('Error toggling state:', error));
+            });
+        });
+    </script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0; /* Optional: Set a background color */
+        }
+        #toggleButton {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        #toggleButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <button id="toggleButton">Loading...</button>
+</body>
+</html>
