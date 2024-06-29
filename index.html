@@ -7,7 +7,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             // Function to fetch the current status from the server
-            fetch('http://localhost:3000/status')
+            fetch('https://hospital-mohammad-project-webserver.onrender.com/status')
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
@@ -21,7 +21,7 @@
                 const button = this;
                 const newState = button.innerText === 'Turn On' ? 'on' : 'off';
 
-                fetch('http://localhost:3000/toggle', {
+                fetch('https://hospital-mohammad-project-webserver.onrender.com/toggle', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
